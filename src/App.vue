@@ -1,23 +1,73 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <div id="app">
-    <header>
-      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-      <div class="wrapper">
-        <HelloWorld msg="You did it!" />
-      </div>
+<div id="app">
+  
+      <header>
+    <h1>{{sitename}}</h1>
+    <button class="btn btn-dark" @click="toggleShowProduct" >
+      {{cardItemCount}}
+      <font-awesome-icon icon="fa-solid fa-cart-shopping"/>
+      Shopping Cart
+    </button>
     </header>
 
     <main>
-      <TheWelcome />
+      <br>
+      <component :is="currentView" :products="products" :sortedproducts="sortedproducts" :imagesBaseURL="imagesBaseURL" :card="card"></component>
     </main>
   </div>
 </template>
+
+<script>
+import ProductList from './components/products.vue'
+import CheckoutList from './components/checkout.vue'
+
+
+export default {
+  name:"app",
+  data () {
+    return{
+        sitename:"Subjects App",
+        card:[],
+        products:[],
+        currentView: ProductList,
+        imagesBaseURL:"",
+        serverURL: "http://subjectsapp-env.eba-jzdkm3cr.eu-west-2.elasticbeanstalk.com/collections/products",
+      }
+  },
+  components: { ProductList, CheckoutList},
+  created: function () {
+    let CartProduct = this;
+        fetch("http://subjectsapp-env.eba-jzdkm3cr.eu-west-2.elasticbeanstalk.com/collections/products")
+          .then(response => response.json())
+          .then(json => {
+            CartProduct.products = json;
+          });
+      },
+  methods:{ 
+    toggleShowProduct() {
+      if (this.currentView === ProductList){
+        this.currentView = CheckoutList;
+      } else {
+        this.currentView = ProductList;
+      }
+    },
+  },
+    computed: {
+        cardItemCount: function () {
+          return this.card.length || "";
+        },
+        sortedproducts() {
+          function compare(a, b) {
+            if (a.price > b.price) return -1;
+            if (a.price < b.price) return 1;
+            return 0;
+          }
+          return this.products.sort(compare);
+        },
+  }
+  };
+</script>
+
 
 <style scoped>
 header {
