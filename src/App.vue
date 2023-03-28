@@ -13,7 +13,7 @@
     <main>
       <br>
       <component :is="currentView" :products="products" :sortedproducts="sortedproducts" 
-      :imagesBaseURL="imagesBaseURL" :tempcard="tempcard" :addToCard="addToCard" :card="card" :order="order"></component>
+      :imagesBaseURL="imagesBaseURL" :tempcard="tempcard" :addToCard="addToCard" :card="card" :searchItem="searchItem" :order="order"></component>
     </main>
   </div>
 </template>
@@ -59,6 +59,14 @@ export default {
               this.tempcard.push(product);
             }
           }
+        },
+        searchItem: function (product) {
+          fetch("http://subjectsapp-env.eba-jzdkm3cr.eu-west-2.elasticbeanstalk.com/collections/products/search?=" + CardProduct.filtertext).then(function (response) {
+            response.json().then(function (json) {
+
+              CartProduct.products = json;
+            });
+          });
         },
         remove: function (product) {
           if (this.card.includes(product)) {
