@@ -12,7 +12,8 @@
 
     <main>
       <br>
-      <component :is="currentView" :products="products" :sortedproducts="sortedproducts" :imagesBaseURL="imagesBaseURL" :card="card"></component>
+      <component :is="currentView" :products="products" :sortedproducts="sortedproducts" 
+      :imagesBaseURL="imagesBaseURL" :tempcard="tempcard" :addToCard="addToCard" :card="card" :order="order"></component>
     </main>
   </div>
 </template>
@@ -28,10 +29,16 @@ export default {
     return{
         sitename:"Subjects App",
         card:[],
-        products:[],
         currentView: ProductList,
+        products:[],
+        tempcard:[],
         imagesBaseURL:"",
         serverURL: "http://subjectsapp-env.eba-jzdkm3cr.eu-west-2.elasticbeanstalk.com/collections/products",
+        order: {
+          firstname: "",
+          lastname: "",
+          number: "",
+        },
       }
   },
   components: { ProductList, CheckoutList},
@@ -44,6 +51,26 @@ export default {
           });
       },
   methods:{ 
+    addToCard: function (product) {
+          if (product.spaces >= 1) {
+            product.spaces = product.spaces - 1;
+            this.card.push(product);
+            if (!(this.tempcard.includes(product))) {
+              this.tempcard.push(product);
+            }
+          }
+        },
+        remove: function (product) {
+          if (this.card.includes(product)) {
+            let index = this.card.indexOf(product);
+            this.card.splice(index, 1);
+            for (let i = 0; i < this.products.length; i++) {
+              if (product == this.products[i]) {
+                this.products[i].spaces++;
+              }
+            }
+          }
+        },
     toggleShowProduct() {
       if (this.currentView === ProductList){
         this.currentView = CheckoutList;
@@ -51,6 +78,9 @@ export default {
         this.currentView = ProductList;
       }
     },
+    canAddToCart(product) {
+          return product.spaces > this.cardCount(product.id);
+        },
   },
     computed: {
         cardItemCount: function () {

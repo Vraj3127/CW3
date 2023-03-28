@@ -36,12 +36,15 @@
 
 <script>
 export default {
-  name:"app",
-  props:["products","imagesBaseURL", "card"],
+  name:"products",
+  props:["products","imagesBaseURL", "card", "tempcard"],
   data () {
     return{}
   },
   methods:{
+    // addToCard(products){
+    //     this.$emit("add-product", products)
+    // },
     addToCard: function (product) {
           if (product.spaces >= 1) {
             product.spaces = product.spaces - 1;
@@ -63,7 +66,9 @@ export default {
           }
           return count;
         },
-        
+        lessonsLeft(product) {
+          return product.spaces - this.cardCount(product.id);
+        },
+    }     
   }
-}
 </script>
