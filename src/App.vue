@@ -98,10 +98,11 @@ export default {
     canAddToCart(product) {
           return product.spaces > this.cardCount(product.id);
         },
-        deleteAllCaches() {
-      caches.keys().then(function (names) {
-        for (let name of names)
-          caches.delete(name);
+        
+    deleteAllCaches() {
+         caches.keys().then(function (names) {
+          for (let name of names)
+            caches.delete(name);
       });
     },
     //method to unregister service worker

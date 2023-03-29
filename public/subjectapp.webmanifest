@@ -1,15 +1,15 @@
 {
     "name": " My Subjects App PWA",
-    "short name": "Subjects",
+    "short name": "App",
     "description": "My online subject store",
     "icons":[
        {
-        "src": "/public/subject 32x32.ico",
+        "src": "/public/images/subject 32x32.png",
         "sizes": "32x32",
         "type": "image/png"
        },
        {
-        "src": "/public/subject 512x512.png",
+        "src": "/public/images/subject 512x512.png",
         "sizes": "512x512",
         "type": "image/png"
        }
