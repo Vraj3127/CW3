@@ -55,6 +55,9 @@ export default{
         return {}
     },
     methods:{
+        remove(products) {
+            this.$emit("remove-product", products);
+        },
         remove: function (product) {
           if (this.card.includes(product)) {
             let index = this.card.indexOf(product);

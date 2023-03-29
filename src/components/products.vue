@@ -45,7 +45,7 @@ export default {
     addToCard(products){
         this.$emit("add-product", products)
     },
-       
+   
     addToCard: function (product) {
           if (product.spaces >= 1) {
             product.spaces = product.spaces - 1;
