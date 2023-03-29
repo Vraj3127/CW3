@@ -4,6 +4,7 @@
         <h1> Shopping Cart :</h1>
         <h2 class="text-center">Total subjects : {{ cardItemCount }}</h2>
         <br><br>
+        
         <div v-for="product in tempcard">
           <img v-bind:src="product.img" height="250px" />
           <div class="card-body">
@@ -129,6 +130,10 @@ export default{
         cardItemCount: function () {
           return this.card.length || "";
         },
+        showitems: function () {
+          return this.product.cardItemCount;
+        },
+        
     } 
 }
 </script>

@@ -13,7 +13,8 @@
     <main>
       <br>
       <component :is="currentView" :products="products" :sortedproducts="sortedproducts" 
-      :imagesBaseURL="imagesBaseURL" :tempcard="tempcard" :addToCard="addToCard" :card="card" :searchItem="searchItem" :order="order"></component>
+      :imagesBaseURL="imagesBaseURL" :tempcard="tempcard" :addToCard="addToCard" :card="card" 
+       :order="order"></component>
     </main>
   </div>
 </template>
