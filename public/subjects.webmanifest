@@ -1,0 +1,20 @@
+{
+    "name": " My Subjects App PWA",
+    "short name": "Subjects",
+    "description": "My online subject store",
+    "icons":[
+       {
+        "src": "/public/subject 32x32.ico",
+        "sizes": "32x32",
+        "type": "image/png"
+       },
+       {
+        "src": "/public/subject 512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+       }
+    ],
+    "start_url":"index.html",
+    "display": "fullscreen",
+    "background_color": "#260bca"
+}

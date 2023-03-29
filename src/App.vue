@@ -8,6 +8,14 @@
       <font-awesome-icon icon="fa-solid fa-cart-shopping"/>
       Shopping Cart
     </button>
+    <div class="btn-group btn-group-sm mt-2" aria-label="Basic example">
+        <button type="button" class="btn  btn-primary mr-2" @click="deleteAllCaches">Delete All Caches</button>
+        <button type="button" class="btn  btn-primary mr-2" @click="reloadPage">Reload Page</button>
+        <button type="button" class="btn  btn-primary mr-2" @click="unregisterAllServiceWorkers">Unregister Service
+          Worker</button>
+        <a href="#" :href="serverURL" class="link-info">Lessons link</a>
+      
+      </div>
     </header>
 
     <main>
@@ -90,6 +98,24 @@ export default {
     canAddToCart(product) {
           return product.spaces > this.cardCount(product.id);
         },
+        deleteAllCaches() {
+      caches.keys().then(function (names) {
+        for (let name of names)
+          caches.delete(name);
+      });
+    },
+    //method to unregister service worker
+    unregisterAllServiceWorkers() {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister()
+        }
+      });
+      console.log("ServiceWorkers Unregistered");
+    },
+    reloadPage() {
+      window.location.reload();
+    },
   },
     computed: {
         cardItemCount: function () {
@@ -103,6 +129,12 @@ export default {
           }
           return this.products.sort(compare);
         },
+        created() {
+    this.CartProduct();
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("serviceworker.js");
+    }
+  },
   }
   };
 </script>
