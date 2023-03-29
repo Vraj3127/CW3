@@ -27,3 +27,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+github pages link : https://vraj3127.github.io/CW3/
